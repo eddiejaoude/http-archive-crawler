@@ -1,0 +1,34 @@
+<div class="hero-unit">
+    <h1><?php echo $this->translate('HTTP Archive Crawler'); ?></h1>
+    <p><?php echo $this->translate('Adding additional functionality to performance tools HTTP Archive & Web Page Test') ?></p>
+    <p>
+        <a class="btn btn-large" href="<?php echo $this->url(
+            'home',
+            array('action' => 'register')
+        );?>"><?php echo $this->translate('Crawler') ?> &raquo;</a>
+    </p>
+</div>
+
+<div class="row">
+
+    <div class="span6">
+        <h2><?php echo $this->translate('HTTP Archive') ?></h2>
+        <p><?php echo $this->translate('In addition to the content of web pages, it\'s important to record how
+        this digitized content is constructed and served. The HTTP Archive provides this record. It is a permanent
+        repository of web performance information such as size of pages, failed requests, and technologies utilized.
+        This performance information allows us to see trends in how the Web is built and provides a common data set
+        from which to conduct web performance research.') ?></p>
+        <p><a class="btn" href="http://httparchive.org"><?php echo $this->translate('HTTP Archive') ?> &raquo;</a></p>
+    </div>
+
+    <div class="span6">
+        <h2><?php echo $this->translate('Web Page Test') ?></h2>
+        <p><?php echo $this->translate('Run a free website speed test from multiple locations around the globe
+        using real browsers (IE and Chrome) and at real consumer connection speeds. You can run simple tests or
+        perform advanced testing including multi-step transactions, video capture, content blocking and much more.
+        Your results will provide rich diagnostic information including resource loading waterfall charts, Page Speed
+        optimization checks and suggestions for improvements.') ?></p>
+        <p><a class="btn" href="http://www.webpagetest.org"><?php echo $this->translate('Web Page Test') ?> &raquo;</a></p>
+   </div>
+
+</div>
