@@ -6,7 +6,7 @@ use Zend\InputFilter\InputFilter; // <-- Add this import
 use Zend\InputFilter\InputFilterAwareInterface; // <-- Add this import
 use Zend\InputFilter\InputFilterInterface; // <-- Add this import
 
-class Crawler implements InputFilterAwareInterface
+class CrawledUrl implements InputFilterAwareInterface
 {
     /**
      * @var int
@@ -14,14 +14,14 @@ class Crawler implements InputFilterAwareInterface
     protected $id = 0;
 
     /**
+     * @var int
+     */
+    protected $urlId = 0;
+
+    /**
      * @var string
      */
     protected $url = '';
-
-    /**
-     * @var array
-     */
-    protected $crawledUrls = array();
 
     /**
      * @var string
@@ -41,6 +41,7 @@ class Crawler implements InputFilterAwareInterface
     public function exchangeArray(array $data)
     {
         $this->id        = (isset($data['id'])) ? $data['id'] : null;
+        $this->urlId    = (isset($data['url_id'])) ? $data['url_id'] : null;
         $this->url       = (isset($data['url'])) ? $data['url'] : null;
         $this->createdOn = (isset($data['created_on'])) ? $data['created_on'] : null;
         $this->updatedOn = (isset($data['updated_on'])) ? $data['updated_on'] : null;
@@ -78,6 +79,18 @@ class Crawler implements InputFilterAwareInterface
                 $factory->createInput(
                     array(
                         'name'     => 'id',
+                        'required' => false,
+                        'filters'  => array(
+                            array('name' => 'Int'),
+                        ),
+                    )
+                )
+            );
+
+            $inputFilter->add(
+                $factory->createInput(
+                    array(
+                        'name'     => 'url_id',
                         'required' => false,
                         'filters'  => array(
                             array('name' => 'Int'),
@@ -129,7 +142,7 @@ class Crawler implements InputFilterAwareInterface
     /**
      * @param $id
      *
-     * @return Crawler
+     * @return Url
      */
     public function setId($id)
     {
@@ -149,7 +162,7 @@ class Crawler implements InputFilterAwareInterface
     /**
      * @param string $url
      *
-     * @return Crawler
+     * @return Url
      */
     public function setUrl($url)
     {
@@ -163,13 +176,18 @@ class Crawler implements InputFilterAwareInterface
      */
     public function getCreatedOn()
     {
+        if (empty($this->createdOn)) {
+            $datetime        = new \DateTime('now');
+            $this->createdOn = $datetime->format('Y-m-d H:i:s');
+        }
+
         return $this->createdOn;
     }
 
     /**
      * @param $createdOn
      *
-     * @return Crawler
+     * @return Url
      */
     public function setCreatedOn($createdOn)
     {
@@ -183,13 +201,18 @@ class Crawler implements InputFilterAwareInterface
      */
     public function getUpdatedOn()
     {
+        if (empty($this->updatedOn)) {
+            $datetime        = new \DateTime('now');
+            $this->updatedOn = $datetime->format('Y-m-d H:i:s');
+        }
+
         return $this->updatedOn;
     }
 
     /**
      * @param $updatedOn
      *
-     * @return Crawler
+     * @return Url
      */
     public function setUpdatedOn($updatedOn)
     {
@@ -199,38 +222,22 @@ class Crawler implements InputFilterAwareInterface
     }
 
     /**
-     * @return array
+     * @return int
      */
-    public function getCrawledUrls()
+    public function getUrlId()
     {
-        return $this->crawledUrls;
+        return $this->urlId;
     }
 
     /**
-     * @param array $urls
-     *
-     * @return Crawler
+     * @param int $urlId
+     * @return $this
      */
-    public function setCrawledUrls(array $urls)
+    public function setUrlId($urlId)
     {
-        $this->crawledUrls = $urls;
+        $this->urlId = (int) $urlId;
         return $this;
     }
 
-    /**
-     * @param string $url
-     *
-     * @return Crawler
-     */
-    public function addCrawledUrl($url)
-    {
-        if (empty($this->crawledUrls[$url])) {
-            $this->crawledUrls[$url] = 1;
-        } else {
-            $this->crawledUrls[$url]++;
-        }
-
-        return $this;
-    }
 
 }

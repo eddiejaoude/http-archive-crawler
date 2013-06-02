@@ -30,6 +30,32 @@ class CrawlerForm extends Form
 
         $this->add(
             array(
+                'name'       => 'depth',
+                'attributes' => array(
+                    'type' => 'text',
+                    'value' => 10,
+                ),
+                'options'    => array(
+                    'label' => 'Depth',
+                ),
+            )
+        );
+
+        $this->add(
+            array(
+                'name'       => 'limit',
+                'attributes' => array(
+                    'type' => 'text',
+                    'value' => 100,
+                ),
+                'options'    => array(
+                    'label' => 'Limit',
+                ),
+            )
+        );
+
+        $this->add(
+            array(
                 'name'       => 'submit',
                 'attributes' => array(
                     'type'  => 'submit',

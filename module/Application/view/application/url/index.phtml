@@ -1,0 +1,36 @@
+<div class="row">
+    <div class="span12">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Url</th>
+                <th>Depth</th>
+                <th>Limit</th>
+                <th>Duration (s)</th>
+                <th>Queued Urls</th>
+                <th>Skipped Urls</th>
+                <th>Failed Urls</th>
+                <th>Created On</th>
+                <th>Updated On</th>
+            </tr>
+            </thead>
+            <tbody>
+        <?php
+        foreach($this->urlList as $url) {
+            echo '<tr>';
+            echo '<td>' . $url->getUrl() . '</td>';
+            echo '<td>' . $url->getDepth() . '</td>';
+            echo '<td>' . $url->getLimit() . '</td>';
+            echo '<td>' . $url->getDuration() . '</td>';
+            echo '<td>' . $url->getQueued() . '</td>';
+            echo '<td>' . $url->getSkipped() . '</td>';
+            echo '<td>' . $url->getFailed() . '</td>';
+            echo '<td>' . $this->date($url->getCreatedOn()) . '</td>';
+            echo '<td>' . $this->date($url->getUpdatedOn()) . '</td>';
+            echo '</tr>';
+        }
+        ?>
+            </tbody>
+        </table>
+    </div>
+</div>

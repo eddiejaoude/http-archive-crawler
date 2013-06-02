@@ -20,16 +20,16 @@ return array(
                     ),
                 ),
             ),
-            'crawler'   => array(
+            'url'         => array(
                 'type'    => 'segment',
                 'options' => array(
-                    'route'       => '/crawler[/:controller][/:action]',
+                    'route'       => '/url[/:action]',
                     'constraints' => array(
                         'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
                     ),
                     'defaults'    => array(
-                        'controller' => 'Application\Controller\Crawler',
+                        'controller' => 'Application\Controller\Url',
                         'action'     => 'index',
                     ),
                 ),
@@ -82,8 +82,9 @@ return array(
     ),
     'controllers'     => array(
         'invokables' => array(
-            'Application\Controller\Index'   => 'Application\Controller\IndexController',
-            'Application\Controller\Crawler' => 'Application\Controller\CrawlerController'
+            'Application\Controller\Index' => 'Application\Controller\IndexController',
+            'Application\Controller\Url'   => 'Application\Controller\UrlController',
+            'Application\Controller\Crawl'   => 'Application\Controller\CrawlController'
         ),
     ),
     'view_manager'    => array(
@@ -106,17 +107,18 @@ return array(
         'invokables' => array(
             'formHelper' => 'Common\View\Helper\TwitBootInline',
             'messages'   => 'Common\View\Helper\TwitBootMessages',
+            'date'       => 'Common\View\Helper\Date',
         ),
     ),
-    'console' => array(
+    'console'         => array(
         'router' => array(
             'routes' => array(
-                'crawl-url' => array(
+                'crawl' => array(
                     'options' => array(
-                        'route'    => 'crawl url <url>',
+                        'route'    => 'crawl <id>',
                         'defaults' => array(
-                            'controller' => 'Application\Controller\Crawler',
-                            'action'     => 'create'
+                            'controller' => 'Application\Controller\Crawl',
+                            'action'     => 'run'
                         )
                     )
                 )

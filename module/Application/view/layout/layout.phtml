@@ -32,18 +32,32 @@
                     <a class="brand" href="<?php echo $this->url('home') ?>"><?php echo $this->translate('HTTP Archive Crawler') ?></a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">
-                            <li class="active">
+                            <li>
                                 <a href="<?php echo $this->url('home') ?>">
-                                    <i class="icon-home icon-white"></i>
+                                    <i class="icon-home"></i>
                                     <?php echo $this->translate('Home') ?>
                                 </a>
                             </li>
                             <li>
-                                <a href="<?php echo $this->url('crawler') ?>">
-                                    <i class="icon-random"></i>
-                                    <?php echo $this->translate('Crawler') ?>
+                                <a href="<?php echo $this->url('url') ?>">
+                                    <i class="icon-list"></i>
+                                    <?php echo $this->translate('My URLs') ?>
                                 </a>
                             </li>
+                            <li>
+                                <a href="<?php echo $this->url('url', array('action' => 'crawl')) ?>">
+                                    <i class="icon-random"></i>
+                                    <?php echo $this->translate('Crawl') ?>
+                                </a>
+                            </li>
+                            <!--
+                            <li>
+                                <a href="<?php echo $this->url('url') ?>">
+                                    <i class="icon-signal"></i>
+                                    <?php echo $this->translate('Agent') ?>
+                                </a>
+                            </li>
+                            -->
                         </ul>
 
                     </div><!--/.nav-collapse -->
