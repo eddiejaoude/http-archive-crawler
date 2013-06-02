@@ -3,6 +3,7 @@ namespace Application\Model\Mapper\CrawledUrl;
 
 use Common\Model\Mapper\Core;
 use Application\Model\Entity\CrawledUrl as CrawledUrlEntity;
+use Application\Model\Entity\Url as UrlEntity;
 
 class CrawledUrlTable extends Core implements CrawledUrlInterface
 {
@@ -26,18 +27,18 @@ class CrawledUrlTable extends Core implements CrawledUrlInterface
 
     /**
      * @param \ArrayObject $data
-     * @return UrlEntity $url
+     * @return CrawledUrlEntity $crawledUrl
      */
     static public function mapToInternal(\ArrayObject $data)
     {
-        $urlEntity = new UrlEntity;
-        $urlEntity->setId($data['id'])
+        $crawledUrlEntity = new CrawledUrlEntity;
+        $crawledUrlEntity->setId($data['id'])
             ->setUrlId($data['url_id'])
             ->setUrl($data['url'])
             ->setCreatedOn($data['created_on'])
             ->setUpdatedOn($data['updated_on']);
 
-        return $urlEntity;
+        return $crawledUrlEntity;
     }
 
     /**
@@ -82,6 +83,24 @@ class CrawledUrlTable extends Core implements CrawledUrlInterface
         }
 
         return $collection;
+    }
+
+    /**
+     * @param \Application\Model\Entity\Url $urlEntity
+     * @internal param \Application\Model\Entity\Url $url
+     * @return array
+     */
+    public function findAllByUrlId(UrlEntity $urlEntity)
+    {
+        $data = array('url_id' => $urlEntity->getId());
+        $response = $this->getDao()->findAllByUrlId($data);
+
+        foreach ($response as $crawledUrl) {
+            $resultSet = self::mapToInternal($crawledUrl);
+            $urlEntity->addCrawledUrl($resultSet);
+        }
+
+        return $urlEntity;
     }
 
     /**

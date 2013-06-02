@@ -1,0 +1,20 @@
+<div class="row">
+    <div class="span12">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Url (<?php echo count($this->url->getCrawledUrls()); ?>)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php
+            foreach($this->url->getCrawledUrls() as $url) {
+                echo '<tr>';
+                echo '<td>' . $url->getUrl() . '</td>';
+                echo '</tr>';
+            }
+            ?>
+            </tbody>
+        </table>
+    </div>
+</div>

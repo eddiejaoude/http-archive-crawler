@@ -18,7 +18,7 @@
         <?php
         foreach($this->urlList as $url) {
             echo '<tr>';
-            echo '<td>' . $url->getUrl() . '</td>';
+            echo '<td><a href="' . $this->url('crawled-url', array('id' => $url->getId())) . '">' . $url->getUrl() . '<a/></td>';
             echo '<td>' . $url->getDepth() . '</td>';
             echo '<td>' . $url->getLimit() . '</td>';
             echo '<td>' . $url->getDuration() . '</td>';

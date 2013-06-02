@@ -34,6 +34,21 @@ return array(
                     ),
                 ),
             ),
+            'crawled-url'         => array(
+                'type'    => 'segment',
+                'options' => array(
+                    'route'       => '/crawled-url/:id',
+                    'constraints' => array(
+                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id'     => '[0-9]+',
+                    ),
+                    'defaults'    => array(
+                        'controller' => 'Application\Controller\CrawledUrl',
+                        'action'     => 'index',
+                    ),
+                ),
+            ),
             // The following is a route to simplify getting started creating
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them
@@ -84,7 +99,8 @@ return array(
         'invokables' => array(
             'Application\Controller\Index' => 'Application\Controller\IndexController',
             'Application\Controller\Url'   => 'Application\Controller\UrlController',
-            'Application\Controller\Crawl'   => 'Application\Controller\CrawlController'
+            'Application\Controller\Crawl'   => 'Application\Controller\CrawlController',
+            'Application\Controller\CrawledUrl'   => 'Application\Controller\CrawledUrlController'
         ),
     ),
     'view_manager'    => array(

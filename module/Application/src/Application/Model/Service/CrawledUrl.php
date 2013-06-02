@@ -67,5 +67,16 @@ class CrawledUrl extends Core
         return true;
     }
 
+    /**
+     * @param UrlEntity $urlEntity
+     * @return UrlEntity
+     */
+    public function findAllByUrlId(UrlEntity $urlEntity)
+    {
+        $response = $this->getMapper()->findAllByUrlId($urlEntity);
+
+        return $response;
+    }
+
 
 }

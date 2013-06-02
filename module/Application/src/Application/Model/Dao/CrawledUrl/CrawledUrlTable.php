@@ -41,6 +41,17 @@ class CrawledUrlTable extends Table implements CrawledUrlInterface, DaoInterface
 
     /**
      * @param array $data
+     * @return \Zend\Db\ResultSet\ResultSet
+     */
+    public function findAllByUrlId(array $data)
+    {
+        $rowSet = $this->getTableGateway()->select($data);
+
+        return $rowSet;
+    }
+
+    /**
+     * @param array $data
      * @return int
      */
     public function update(array $data)

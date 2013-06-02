@@ -5,6 +5,7 @@ use Zend\InputFilter\Factory as InputFactory; // <-- Add this import
 use Zend\InputFilter\InputFilter; // <-- Add this import
 use Zend\InputFilter\InputFilterAwareInterface; // <-- Add this import
 use Zend\InputFilter\InputFilterInterface; // <-- Add this import
+use Application\Model\Entity\CrawledUrl as CrawledUrlEntity;
 
 class Url implements InputFilterAwareInterface
 {
@@ -355,17 +356,13 @@ class Url implements InputFilterAwareInterface
     }
 
     /**
-     * @param string $url
+     * @param CrawledUrlEntity $crawledUrl
      *
      * @return Url
      */
-    public function addCrawledUrl($url)
+    public function addCrawledUrl(CrawledUrlEntity $crawledUrl)
     {
-        if (empty($this->crawledUrls[$url])) {
-            $this->crawledUrls[$url] = 1;
-        } else {
-            $this->crawledUrls[$url]++;
-        }
+        $this->crawledUrls[] = $crawledUrl;
 
         return $this;
     }
