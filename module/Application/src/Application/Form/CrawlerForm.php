@@ -18,12 +18,39 @@ class CrawlerForm extends Form
 
         $this->add(
             array(
-                'name'       => 'url',
+                'name'       => 'protocol',
+                'attributes' => array(
+                    'type' => 'text',
+                    'value' => 'http://',
+                    'disabled' => 'disabled'
+                ),
+                'options'    => array(
+                    'label' => 'Protocol',
+                ),
+            )
+        );
+
+        $this->add(
+            array(
+                'name'       => 'hostname',
                 'attributes' => array(
                     'type' => 'text',
                 ),
                 'options'    => array(
-                    'label' => 'URL',
+                    'label' => 'Hostname',
+                ),
+            )
+        );
+
+        $this->add(
+            array(
+                'name'       => 'port',
+                'attributes' => array(
+                    'type' => 'text',
+                    'value' => 80,
+                ),
+                'options'    => array(
+                    'label' => 'Port',
                 ),
             )
         );

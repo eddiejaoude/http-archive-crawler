@@ -14,7 +14,9 @@
 
         echo $this->form()->openTag($form);
 
-        echo $this->formHelper($form)->formInput($form->get('url'));
+        echo $this->formHelper($form)->formInput($form->get('protocol'));
+        echo $this->formHelper($form)->formInput($form->get('hostname'));
+        echo $this->formHelper($form)->formInput($form->get('port'));
         echo $this->formHelper($form)->formInput($form->get('depth'));
         echo $this->formHelper($form)->formInput($form->get('limit'));
 

@@ -26,7 +26,22 @@ class Url implements InputFilterAwareInterface
     /**
      * @var string
      */
+    protected $protocol = 'http://';
+
+    /**
+     * @var string
+     */
     protected $url = '';
+
+    /**
+     * @var string
+     */
+    protected $hostname = '';
+
+    /**
+     * @var int
+     */
+    protected $port = 80;
 
     /**
      * @var int
@@ -92,7 +107,10 @@ class Url implements InputFilterAwareInterface
     {
         $this->id         = (isset($data['id'])) ? $data['id'] : null;
         $this->userId     = (isset($data['user_id'])) ? $data['user_id'] : null;
+        $this->protocol   = (isset($data['protocol'])) ? $data['protocol'] : 'http://';
+        $this->hostname   = (isset($data['hostname'])) ? $data['hostname'] : null;
         $this->url        = (isset($data['url'])) ? $data['url'] : null;
+        $this->port       = (isset($data['port'])) ? $data['port'] : 80;
         $this->depth      = (isset($data['depth'])) ? $data['depth'] : null;
         $this->limit      = (isset($data['limit'])) ? $data['limit'] : null;
         $this->spiderId   = (isset($data['spider_id'])) ? $data['spider_id'] : null;
@@ -160,7 +178,7 @@ class Url implements InputFilterAwareInterface
             $inputFilter->add(
                 $factory->createInput(
                     array(
-                        'name'       => 'url',
+                        'name'       => 'hostname',
                         'required'   => true,
                         'filters'    => array(
                             array('name' => 'StripTags'),
@@ -179,6 +197,18 @@ class Url implements InputFilterAwareInterface
                                 'name' => 'Zend\Validator\Hostname'
                             ),
                         )
+                    )
+                )
+            );
+
+            $inputFilter->add(
+                $factory->createInput(
+                    array(
+                        'name'     => 'port',
+                        'required' => false,
+                        'filters'  => array(
+                            array('name' => 'Int'),
+                        ),
                     )
                 )
             );
@@ -267,17 +297,39 @@ class Url implements InputFilterAwareInterface
      */
     public function getUrl()
     {
-        return $this->url;
+        if (!empty($this->url)) {
+            return $this->url;
+        }
+
+        return $this->getProtocol() . $this->getHostname() . ':' . $this->getPort();
     }
 
     /**
-     * @param string $url
-     *
+     * @param $url
      * @return Url
      */
     public function setUrl($url)
     {
-        $this->url = (string)$url;
+        $this->url = (string) $url;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPort()
+    {
+        return $this->port;
+    }
+
+    /**
+     * @param int $port
+     *
+     * @return Url
+     */
+    public function setPort($port)
+    {
+        $this->port = (int)$port;
 
         return $this;
     }
@@ -527,7 +579,7 @@ class Url implements InputFilterAwareInterface
 
         $now           = new \DateTime();
         $startDateTime = new \DateTime($start);
-        $endDateTime = new \DateTime($end);
+        $endDateTime   = new \DateTime($end);
 
         if ('0000-00-00 00:00:00' == $start && '0000-00-00 00:00:00' == $end) {
             return self::PENDING;
@@ -540,7 +592,7 @@ class Url implements InputFilterAwareInterface
             return self::RUNNING;
         }
 
-        return $startDateTime->diff($endDateTime)->format('%s');
+        return $startDateTime->diff($endDateTime)->format('%dd %hh %im %ss');
     }
 
     /**
@@ -577,6 +629,44 @@ class Url implements InputFilterAwareInterface
     public function setLimit($limit)
     {
         $this->limit = (int)$limit;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProtocol()
+    {
+        return $this->protocol;
+    }
+
+    /**
+     * @param string $protocol
+     * @return $this
+     */
+    public function setProtocol($protocol)
+    {
+        $this->protocol = (string)$protocol;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHostname()
+    {
+        return $this->hostname;
+    }
+
+    /**
+     * @param string $hostname
+     * @return $this
+     */
+    public function setHostname($hostname)
+    {
+        $this->hostname = (string)$hostname;
 
         return $this;
     }

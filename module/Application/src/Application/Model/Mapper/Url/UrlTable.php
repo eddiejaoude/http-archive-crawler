@@ -16,8 +16,8 @@ class UrlTable extends Core implements UrlInterface
         $data = array(
             'id'          => $url->getId(),
             'url'         => $url->getUrl(),
-            'depth'         => $url->getDepth(),
-            'limit'         => $url->getLimit(),
+            'depth'       => $url->getDepth(),
+            'limit'       => $url->getLimit(),
             'spider_id'   => $url->getSpiderId(),
             'queued'      => $url->getQueued(),
             'skipped'     => $url->getSkipped(),
@@ -40,6 +40,9 @@ class UrlTable extends Core implements UrlInterface
         $urlEntity = new UrlEntity;
         $urlEntity->setId($data['id'])
             ->setUrl($data['url'])
+//            ->setProtocol($data['protocol'])
+//            ->setHostname($data['hostname'])
+//            ->setPort($data['port'])
             ->setDepth($data['depth'])
             ->setLimit($data['limit'])
             ->setUserId($data['user_id'])
