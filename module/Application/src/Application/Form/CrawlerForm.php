@@ -48,6 +48,7 @@ class CrawlerForm extends Form
                 'attributes' => array(
                     'type' => 'text',
                     'value' => 80,
+                    'disabled' => 'disabled'
                 ),
                 'options'    => array(
                     'label' => 'Port',

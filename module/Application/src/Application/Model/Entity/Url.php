@@ -110,7 +110,7 @@ class Url implements InputFilterAwareInterface
         $this->protocol   = (isset($data['protocol'])) ? $data['protocol'] : 'http://';
         $this->hostname   = (isset($data['hostname'])) ? $data['hostname'] : null;
         $this->url        = (isset($data['url'])) ? $data['url'] : null;
-        $this->port       = (isset($data['port'])) ? $data['port'] : 80;
+        $this->port       = (!empty($data['port'])) ? $data['port'] : 80;
         $this->depth      = (isset($data['depth'])) ? $data['depth'] : null;
         $this->limit      = (isset($data['limit'])) ? $data['limit'] : null;
         $this->spiderId   = (isset($data['spider_id'])) ? $data['spider_id'] : null;
@@ -301,7 +301,7 @@ class Url implements InputFilterAwareInterface
             return $this->url;
         }
 
-        return $this->getProtocol() . $this->getHostname() . ':' . $this->getPort();
+        return $this->getProtocol() . $this->getHostname() . (($this->getPort() == 80) ? null : ':' . $this->getPort());
     }
 
     /**
