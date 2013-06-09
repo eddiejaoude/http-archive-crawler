@@ -35,13 +35,12 @@ class CrawledUrl extends Core
 
 
         // crawl url
-        $url = 'http://' . $urlEntity->getUrl();
-        $spider = new Spider($url);
+        $spider = new Spider($urlEntity->getUrl());
         $spider->addDiscoverer(new XPathExpressionDiscoverer("//body//a"));
         $spider->setMaxDepth($urlEntity->getDepth());
         $spider->setMaxQueueSize($urlEntity->getLimit());
         $spider->setTraversalAlgorithm(Spider::ALGORITHM_BREADTH_FIRST);
-        $spider->addPreFetchFilter(new AllowedHostsFilter(array($url), true));
+        $spider->addPreFetchFilter(new AllowedHostsFilter(array($urlEntity->getUrl()), true));
         $spider->crawl();
 
         // save crawl
