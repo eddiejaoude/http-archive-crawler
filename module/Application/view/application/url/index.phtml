@@ -10,8 +10,8 @@
                     <th>Queued Urls</th>
                     <th>Skipped Urls</th>
                     <th>Failed Urls</th>
-                    <th>Created On</th>
-                    <th>Updated On</th>
+                    <th>Crawl Start</th>
+                    <th>Crawl End</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,8 +25,8 @@
             echo '<td>' . $url->getQueued() . '</td>';
             echo '<td>' . $url->getSkipped() . '</td>';
             echo '<td>' . $url->getFailed() . '</td>';
-            echo '<td>' . $this->date($url->getCreatedOn()) . '</td>';
-            echo '<td>' . $this->date($url->getUpdatedOn()) . '</td>';
+            echo '<td>' . $this->date($url->getCrawlStart()) . '</td>';
+            echo '<td>' . $this->date($url->getCrawlEnd()) . '</td>';
             echo '</tr>';
         }
         ?>
