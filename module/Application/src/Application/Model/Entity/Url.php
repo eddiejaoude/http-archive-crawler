@@ -310,7 +310,8 @@ class Url implements InputFilterAwareInterface
      */
     public function setUrl($url)
     {
-        $this->url = (string) $url;
+        $this->url = (string)$url;
+
         return $this;
     }
 
@@ -569,10 +570,10 @@ class Url implements InputFilterAwareInterface
     }
 
     /**
-     * @param int $limit
+     * @param int $limit minutes
      * @return string
      */
-    public function getDuration($limit = 600)
+    public function getDuration($limit = 10)
     {
         $start = $this->getCrawlStart();
         $end   = $this->getCrawlEnd();
@@ -581,14 +582,21 @@ class Url implements InputFilterAwareInterface
         $startDateTime = new \DateTime($start);
         $endDateTime   = new \DateTime($end);
 
-        if ('0000-00-00 00:00:00' == $start && '0000-00-00 00:00:00' == $end) {
+        if (
+            '0000-00-00 00:00:00' == $start &&
+            '0000-00-00 00:00:00' == $end
+        ) {
             return self::PENDING;
-        } elseif ('0000-00-00 00:00:00' != $start && '0000-00-00 00:00:00' == $end && $startDateTime->diff(
-                $now
-            )->format('%s') > $limit
+        } elseif (
+            '0000-00-00 00:00:00' != $start &&
+            '0000-00-00 00:00:00' == $end &&
+            $startDateTime->add(new \DateInterval('PT' . $limit . 'M')) < $now
         ) {
             return self::ABORTED;
-        } elseif ('0000-00-00 00:00:00' != $start && '0000-00-00 00:00:00' == $end) {
+        } elseif (
+            '0000-00-00 00:00:00' != $start &&
+            '0000-00-00 00:00:00' == $end
+        ) {
             return self::RUNNING;
         }
 
